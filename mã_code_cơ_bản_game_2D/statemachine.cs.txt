@@ -1,0 +1,49 @@
+Trong Unity, bạn có thể triển khai máy trạng thái (state machine) bằng cách sử dụng các script và các hàm của Unity. Dưới đây là ví dụ về cú pháp để triển khai một máy trạng thái đơn giản trong Unity:
+
+Định nghĩa các trạng thái (states):
+
+public enum MyState
+{
+    Idle,
+    Walking,
+    Running,
+    Jumping
+}
+Tạo một script để quản lý máy trạng thái:
+csharp
+Copier
+using UnityEngine;
+
+public class StateMachine : MonoBehaviour
+{
+    public MyState currentState;
+
+    private void Start()
+    {
+        // Thiết lập trạng thái ban đầu
+        currentState = MyState.Idle;
+    }
+
+    private void Update()
+    {
+        // Xử lý logic cho từng trạng thái
+        switch (currentState)
+        {
+            case MyState.Idle:
+                // Xử lý logic khi ở trạng thái Idle
+                break;
+
+            case MyState.Walking:
+                // Xử lý logic khi ở trạng thái Walking
+                break;
+
+            case MyState.Running:
+                // Xử lý logic khi ở trạng thái Running
+                break;
+
+            case MyState.Jumping:
+                // Xử lý logic khi ở trạng thái Jumping
+                break;
+        }
+    }
+}

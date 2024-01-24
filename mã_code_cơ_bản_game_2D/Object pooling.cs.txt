@@ -1,0 +1,49 @@
+public class ObjectPool : MonoBehaviour
+{
+    public GameObject prefab; // Đối tượng mẫu để tạo ra các đối tượng trong pool
+    public int poolSize; // Số lượng đối tượng trong pool
+
+    private List<GameObject> pooledObjects; // Danh sách các đối tượng đã được tạo
+
+    private void Start()
+    {
+        pooledObjects = new List<GameObject>();
+
+        for (int i = 0; i < poolSize; i++)
+        {
+            GameObject obj = Instantiate(prefab); // Tạo ra một đối tượng mới từ prefab
+            obj.SetActive(false); // Vô hiệu hóa đối tượng để ẩn nó
+            pooledObjects.Add(obj); // Thêm đối tượng vào danh sách pooledObjects
+        }
+    }
+
+    public GameObject GetPooledObject()
+    {
+        foreach (GameObject obj in pooledObjects) // Duyệt qua danh sách pooledObjects
+        {
+            if (!obj.activeInHierarchy) // Kiểm tra xem đối tượng có được kích hoạt hay không
+            {
+                return obj; // Trả về đối tượng chưa được sử dụng
+            }
+        }
+
+        return null; // Trả về null nếu không có đối tượng khả dụng trong pool
+    }
+}
+public class InputManager : MonoBehaviour
+{
+    public ObjectPool objectPool; // Tham chiếu đến ObjectPool
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject pooledObject = objectPool.GetPooledObject(); // Nhận đối tượng từ object pool
+            if (pooledObject != null) // Kiểm tra xem đối tượng đã nhận được có tồn tại hay không
+            {
+                pooledObject.SetActive(true); // Kích hoạt đối tượng
+                // Thực hiện các hoạt động khác với đối tượng đã nhận được...
+            }
+        }
+    }
+}
