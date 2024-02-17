@@ -10,8 +10,7 @@ public enum MyState
     Jumping
 }
 Tạo một script để quản lý máy trạng thái:
-csharp
-Copier
+
 using UnityEngine;
 
 public class StateMachine : MonoBehaviour
